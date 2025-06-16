@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Copy index.html
+      copy:
+        src: /workspace/app/index.html
+        dest: /var/www/html/index.html

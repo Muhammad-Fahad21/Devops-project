@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Terraform Init & Apply') {
+      steps {
+        dir('/var/jenkins_home/workspace/Final-devops-pipeline/terraform') {
+          sh '''
+            terraform init
+            terraform apply -auto-approve
+          '''
+        }
+      }
+    }
+
+    stage('Ansible Deployment') {
+      steps {
+        dir('/var/jenkins_home/workspace/Final-devops-pipeline/ansible') {
+          sh '''
+            echo Running Ansible playbook...
+            ansible-playbook -i inventory.ini playbook.yml
+          '''
+        }
+      }
+    }
+
+    stage('Verify Deployment') {
+      steps {
+        sh '''
+          echo Checking if website is live...
+          curl http://203.101.188.33
+        '''
+      }
+    }
+  }
+}
