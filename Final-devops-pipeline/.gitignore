@@ -1,0 +1,16 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Ansible
+*.retry
+
+# Jenkins
+copy_reference_file.log
+
+# System
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
